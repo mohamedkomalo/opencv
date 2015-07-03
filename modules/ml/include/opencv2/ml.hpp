@@ -357,6 +357,26 @@ public:
         Ptr<_Tp> model = _Tp::create();
         return !model.empty() && model->train(data, flags) ? model : Ptr<_Tp>();
     }
+
+    /** @brief Non-OpenCV function added by mohamedkomalo for the java bindings
+    Load the algorithm from a file inside the object
+
+    Initially, these functions were put in Alogrithm and uses its "read" method
+    However when calling the functions from the java binding, an exception occurs
+    I think it has something to do with the function being virtual and "Algorithm" was in another module
+    The default implementation is empty, it is only implemented in SVM class
+     */
+	CV_WRAP virtual void loadModel(const String& filename){ };
+    
+    /** @brief Non-OpenCV function added by mohamedkomalo for the java bindings
+    Save the algorithm in a file
+
+    Initially, these functions were put in Alogrithm and uses its "write" method
+    However when calling the functions from the java binding, an exception occurs
+    I think it has something to do with the function being virtual and "Algorithm" was in another module
+    The default implementation is empty, it is only implemented in SVM class
+     */
+	CV_WRAP virtual void saveModel(const String& filename){ };
 };
 
 /****************************************************************************************\
@@ -670,6 +690,16 @@ public:
                     ParamGrid coeffGrid  = SVM::getDefaultGrid(SVM::COEF),
                     ParamGrid degreeGrid = SVM::getDefaultGrid(SVM::DEGREE),
                     bool balanced=false) = 0;
+	
+    /** @brief Non-OpenCV function added by mohamedkomalo for the java bindings to provide the ability to call trainAuto
+     */
+	CV_WRAP virtual bool trainAutoFlat(InputArray samples, int layout, InputArray responses, int kFold,
+		double cMin, double cMax, double cStep,
+		double gammaMin, double gammaMax, double gammaStep,
+		double pMin, double pMax, double pStep,
+		double nuMin, double nuMax, double nuStep,
+		double coeffMin, double coeffMax, double coeffStep,
+		double degreeMin, double degreeMax, double degreeStep, bool balanced) = 0;
 
     /** @brief Retrieves all the support vectors
 
@@ -709,6 +739,10 @@ public:
     Use StatModel::train to train the model. Since %SVM has several parameters, you may want to
     find the best parameters for your problem, it can be done with SVM::trainAuto. */
     CV_WRAP static Ptr<SVM> create();
+
+
+	void loadModel(const String& filename);
+	void saveModel(const String& filename);
 };
 
 /****************************************************************************************\

@@ -407,6 +407,22 @@ ParamGrid SVM::getDefaultGrid( int param_id )
     return grid;
 }
 
+void SVM::saveModel(const String& filename)
+{
+	FileStorage fs(filename, FileStorage::WRITE);
+	fs << getDefaultName() << "{";
+	fs << "format" << (int)3;
+	write(fs);
+	fs << "}";
+}
+
+void SVM::loadModel(const String& filename)
+{
+	FileStorage fs(filename, FileStorage::READ);
+	FileNode fn = fs.getFirstTopLevelNode();
+	read(fn);
+}
+
 
 class SVMImpl : public SVM
 {
@@ -1621,6 +1637,25 @@ public:
 
         return true;
     }
+
+	bool trainAutoFlat(InputArray samples, int layout, InputArray responses, int kFold,
+		double cMin, double cMax, double cStep,
+		double gammaMin, double gammaMax, double gammaStep,
+		double pMin, double pMax, double pStep,
+		double nuMin, double nuMax, double nuStep,
+		double coeffMin, double coeffMax, double coeffStep,
+		double degreeMin, double degreeMax, double degreeStep, bool balanced){
+        
+		return trainAuto(TrainData::create(samples, layout, responses),
+							kFold,
+							ParamGrid(cMin, cMax, cStep),
+							ParamGrid(gammaMin, gammaMax, gammaStep),
+							ParamGrid(pMin, pMax, pStep),
+							ParamGrid(nuMin, nuMax, nuStep),
+							ParamGrid(coeffMin, coeffMax, coeffStep),
+							ParamGrid(degreeMin, degreeMax, degreeStep),
+							balanced);
+	}
 
     bool trainAuto( const Ptr<TrainData>& data, int k_fold,
                     ParamGrid C_grid, ParamGrid gamma_grid, ParamGrid p_grid,
