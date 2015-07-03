@@ -7,6 +7,8 @@
 #include "opencv2/features2d.hpp"
 #include "features2d_converters.hpp"
 
+#include "opencv2/features2d/nonfree.hpp"
+
 #undef SIMPLEBLOB // to solve conflict with wincrypt.h on windows
 
 namespace cv

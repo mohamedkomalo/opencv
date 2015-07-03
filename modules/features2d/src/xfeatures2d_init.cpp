@@ -40,42 +40,4 @@
 //
 //M*/
 
-#ifndef __OPENCV_PRECOMP_H__
-#define __OPENCV_PRECOMP_H__
-
-#include "opencv2/features2d.hpp"
-#include "opencv2/imgproc.hpp"
-
-#include "opencv2/core/utility.hpp"
-#include "opencv2/core/private.hpp"
-#include "opencv2/core/ocl.hpp"
-
-#include <algorithm>
-
-#ifdef HAVE_TEGRA_OPTIMIZATION
-#include "opencv2/features2d/features2d_tegra.hpp"
-#endif
-
-#include "opencv2/features2d/cuda.hpp"
-
-#include "opencv2/features2d.hpp"
-#include "opencv2/imgproc.hpp"
-
-#include "opencv2/core/utility.hpp"
-#include "opencv2/core/private.hpp"
-#include "opencv2/core/private.cuda.hpp"
-
-//#include "opencv2/features2d/cuda.hpp"
-//#include "opencv2/core/private.cuda.hpp"
-
-#include "opencv2/core/ocl.hpp"
-
-#include "opencv2/opencv_modules.hpp"
-
-#ifdef HAVE_OPENCV_CUDAARITHM
-#  include "opencv2/cudaarithm.hpp"
-#endif
-
-#include "opencv2/core/private.hpp"
-
-#endif
+#include "precomp.hpp"
