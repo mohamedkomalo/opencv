@@ -116,15 +116,15 @@ public:
         case FAST:
             fd = FastFeatureDetector::create();
             break;
-        //case STAR:
-        //    fd = xfeatures2d::StarDetector::create();
-        //    break;
-        //case SIFT:
-        //    name = name + "SIFT";
-        //    break;
-        //case SURF:
-        //    name = name + "SURF";
-        //    break;
+        case STAR:
+            fd = cv::features2d::StarDetector::create();
+            break;
+        case SIFT:
+            fd = cv::features2d::SiftDescriptorExtractor::create();
+            break;
+        case SURF:
+            fd = cv::features2d::SURF::create();
+            break;
         case ORB:
             fd = ORB::create();
             break;
@@ -351,24 +351,24 @@ public:
         Ptr<DescriptorExtractor> de;
         switch(extractorType)
         {
-        //case SIFT:
-        //    name = name + "SIFT";
-        //    break;
-        //case SURF:
-        //    name = name + "SURF";
-        //    break;
+        case SIFT:
+            de = cv::features2d::SIFT::create();
+            break;
+        case SURF:
+            de = cv::features2d::SurfDescriptorExtractor::create();
+            break;
         case ORB:
             de = ORB::create();
             break;
-        //case BRIEF:
-        //    name = name + "BRIEF";
-        //    break;
+        case BRIEF:
+            de = cv::features2d::BriefDescriptorExtractor::create();
+            break;
         case BRISK:
             de = BRISK::create();
             break;
-        //case FREAK:
-        //    name = name + "FREAK";
-        //    break;
+        case FREAK:
+            de = cv::features2d::FREAK::create();
+            break;
         case AKAZE:
             de = AKAZE::create();
             break;
